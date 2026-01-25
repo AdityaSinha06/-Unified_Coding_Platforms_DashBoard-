@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <h2>Contest Tracker Dash-board</h2>
+
+    <form id="platformSelection">
+        <p>Select Platforms: </p>
+        <div>
+            <input type="checkbox" id="codeforces" name="platform[]" value="codeforces">
+            <label for="codeforces">CodeForces</label>
+            
+            <input type="checkbox" id="leetcode" name="platform[]" value="leetcode">
+            <label for="leetcode">LeetCode</label>
+            
+            <input type="checkbox" id="codechef" name="platform[]" value="codechef">
+            <label for="codechef">CodeChef</label>
+
+            <input type="checkbox" id="geeksforgeeks" name="platform[]" value="geeksforgeeks">
+            <label for="geeksforgeeks">GeeksForGeeks</label>
+        </div>
+        <br> <br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <form id="usernameInput" class="hidden">
+        <!-- Dynamically generate all the elements using js -->
+        <p>Input Your Usernames: </p>
+    </form>
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>
