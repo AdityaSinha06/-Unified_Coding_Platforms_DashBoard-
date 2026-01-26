@@ -1,6 +1,24 @@
 let form1 = document.querySelector("#platformSelection");
 let form2 = document.querySelector("#usernameInput");
 let inputPlatformsId = [];
+
+async function fetchCodeforcesData(handle) {
+    try {
+        const response = await fetch(`https://codeforces.com/api/user.info?handles=${handle}&checkHistoricHandles=false`);
+
+        const data = await response.json();
+
+        if(data.status === "FAILED") {
+            throw new Error("Invalid Codeforces handle");
+        }
+
+        return data.result[0];
+    } catch (err) {
+        console.error("Codeforces fetch failed", err.message);
+        return null;
+    }
+}
+
 form1.addEventListener("submit" , function (event) {
     event.preventDefault();
     console.log("Form-1 submitted");
@@ -70,5 +88,25 @@ form2.addEventListener("submit" , function(event) {
 
         inputUsernames[platform] = inputBtn.value.trim();
     }
+
+    localStorage.setItem("codingProfiles" , JSON.stringify(inputUsernames));
+    const savedProfiles = JSON.parse(localStorage.getItem("codingProfiles"));
+    console.log(savedProfiles);
+
+    if(savedProfiles && savedProfiles["codeforces"]) {
+        fetchCodeforcesData(savedProfiles["codeforces"])
+            .then(user => {
+                if(!user) return;
+
+                console.log("Codeforces User:");
+                console.log("Handle: ", user.handle);
+                console.log("Max Rating: ", user.maxRating);
+                console.log("Max Rank: ", user.maxRank)
+                console.log("Rating: ", user.rating);
+                console.log("Rank: ", user.rank);
+            });
+    }
     
 });
+
+
